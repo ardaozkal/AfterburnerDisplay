@@ -18,3 +18,13 @@ If you want to edit it for using with other stuff, just use the [sample code her
 ##What is ready?
 
 Everything I planned for this project is done. Took 7 hours, but 4 hours of it was searching for a proper library (and losing loads of time in reddit slacking) because the official display library doesn't show texts.
+
+##But why?
+
+[Someone from a chatroom said that they use their 60usd keypad just to display afterburner info.](http://chat.stackexchange.com/transcript/35?m=31736992#31736992). I told them to give me a day and 5$, and I'd do the same. I ended up making the same for about $9.10 (when I first bought these parts they costed like $7, I blame Wemos) in 7 hours.
+
+##Also, disclaimer: 
+
+Users: I take no responsibility. All responsibility is yours.
+
+MSI: I'm not affiliated with MSI in any way. This is a non-profit fan project, so don't takedown the repo please? I can rename it if you mail me from the mail on my github profile. 
