@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MSI.Afterburner;
+using System.IO;
 
 namespace AfterburnerComms
 {
@@ -14,12 +15,36 @@ namespace AfterburnerComms
         {
             Console.WriteLine("AfterburnerDisplay by ardaozkal, open source on https://github.com/ardaozkal/AfterburnerDisplay");
             Console.WriteLine("Make sure MSI Afterburner is running and the ESP8266 is plugged in.");
-            Console.WriteLine("Port Name? (COM3, COM4 etc):");
-            var portname = Console.ReadLine();
-            Console.WriteLine("Baud Rate? (default is 9600 - you still need to type):");
-            var baudrate = int.Parse(Console.ReadLine());
-            Console.WriteLine("Refresh Rate? (in milliseconds, so 1000 = 1 second. Higher the value, higher the accuracy of data displayed but higher screen flashing):");
-            var refreshrate = int.Parse(Console.ReadLine());
+            var portname = "crash";
+            var baudrate = 9600;
+            var refreshrate = 1000;
+            if (!File.Exists("config.ini"))
+            {
+                Console.WriteLine("Port Name? (COM3, COM4 etc):");
+                portname = Console.ReadLine();
+                Console.WriteLine("Baud Rate? (default is 9600 - you still need to type):");
+                baudrate = int.Parse(Console.ReadLine());
+                Console.WriteLine("Refresh Rate? (in milliseconds, so 1000 = 1 second. Higher the value, higher the accuracy of data displayed but higher screen flashing):");
+                refreshrate = int.Parse(Console.ReadLine());
+                File.WriteAllLines("config.ini", new List<string> { portname, baudrate.ToString(), refreshrate.ToString() });
+                Console.WriteLine("Saved config and started working.");
+            }
+            else
+            {
+                var lines = File.ReadAllLines("config.ini");
+                if (lines.Count() < 3)
+                {
+                    File.Delete("config.ini");
+                    Console.WriteLine("Config was broken and was therefore removed, please restart the program.");
+                }
+                else
+                {
+                    portname = lines[0];
+                    baudrate = int.Parse(lines[1]);
+                    refreshrate = int.Parse(lines[2]);
+                    Console.WriteLine("Loaded config and started working.");
+                }
+            }
             SerialPort port = new SerialPort(portname, baudrate);
             port.Open();
             while (true)
@@ -40,7 +65,6 @@ namespace AfterburnerComms
 
                 System.Threading.Thread.Sleep(refreshrate);
             }
-            port.Close();
         }
     }
 }
