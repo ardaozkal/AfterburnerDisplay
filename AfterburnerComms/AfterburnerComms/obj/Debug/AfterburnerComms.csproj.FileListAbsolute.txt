@@ -5,3 +5,10 @@ c:\users\ardao\documents\visual studio 2015\Projects\AfterburnerComms\Afterburne
 c:\users\ardao\documents\visual studio 2015\Projects\AfterburnerComms\AfterburnerComms\obj\Debug\AfterburnerComms.exe
 c:\users\ardao\documents\visual studio 2015\Projects\AfterburnerComms\AfterburnerComms\obj\Debug\AfterburnerComms.pdb
 c:\users\ardao\documents\visual studio 2015\Projects\AfterburnerComms\AfterburnerComms\bin\Debug\MSIAfterburner.NET.dll
+C:\Users\ardao\Documents\GitHub\AfterburnerDisplay\AfterburnerComms\AfterburnerComms\bin\Debug\AfterburnerComms.exe.config
+C:\Users\ardao\Documents\GitHub\AfterburnerDisplay\AfterburnerComms\AfterburnerComms\obj\Debug\AfterburnerComms.exe
+C:\Users\ardao\Documents\GitHub\AfterburnerDisplay\AfterburnerComms\AfterburnerComms\obj\Debug\AfterburnerComms.pdb
+C:\Users\ardao\Documents\GitHub\AfterburnerDisplay\AfterburnerComms\AfterburnerComms\bin\Debug\AfterburnerComms.exe
+C:\Users\ardao\Documents\GitHub\AfterburnerDisplay\AfterburnerComms\AfterburnerComms\bin\Debug\AfterburnerComms.pdb
+C:\Users\ardao\Documents\GitHub\AfterburnerDisplay\AfterburnerComms\AfterburnerComms\bin\Debug\MSIAfterburner.NET.dll
+C:\Users\ardao\Documents\GitHub\AfterburnerDisplay\AfterburnerComms\AfterburnerComms\obj\Debug\AfterburnerComms.csprojResolveAssemblyReference.cache

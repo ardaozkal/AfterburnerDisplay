@@ -25,52 +25,19 @@ namespace AfterburnerComms
             while (true)
             {
                 var hardwareMonitor = new HardwareMonitor();
-                Console.Clear();
-                Console.Write("GPU1:");
-                port.Write("?GPU1:");
-                foreach (var thing in hardwareMonitor.Entries)
-                {
-                    if (thing.SrcName == "GPU1 temperature")
-                    {
-                        port.Write($"{Math.Floor(thing.Data)}C");
-                        Console.Write($"{Math.Floor(thing.Data)}C");
-                    }
-                    if (thing.SrcName == "GPU1 usage")
-                    {
-                        port.Write($"|%{Math.Floor(thing.Data)}");
-                        Console.WriteLine("");
-                        Console.Write($"%{Math.Floor(thing.Data)}");
-                    }
-                }
-                port.Write("|CPU:");
-                Console.WriteLine("");
-                Console.Write("CPU:");
-                foreach (var thing in hardwareMonitor.Entries)
-                {
-                    if (thing.SrcName == "CPU temperature")
-                    {
-                        port.Write($"{Math.Floor(thing.Data)}C");
-                        Console.Write($"{Math.Floor(thing.Data)}C");
-                    }
-                    if (thing.SrcName == "CPU usage")
-                    {
-                        port.Write($"|%{Math.Floor(thing.Data)}");
-                        Console.WriteLine("");
-                        Console.Write($"%{Math.Floor(thing.Data)}");
-                    }
-                }
-                port.Write("|RAM:");
-                Console.WriteLine("");
-                Console.Write("RAM:");
-                foreach (var thing in hardwareMonitor.Entries)
-                {
-                    if (thing.SrcName == "RAM usage")
-                    {
-                        var percentage = (thing.Data / thing.MaxLimit) * 100;
-                        port.Write($"%{Math.Floor(percentage)}");
-                        Console.Write($"%{Math.Floor(percentage)}");
-                    }
-                }
+                var GPUHeat = hardwareMonitor.Entries.Where(Entry => Entry.SrcName == "GPU1 temperature").FirstOrDefault().Data;
+                var GPUUsage = hardwareMonitor.Entries.Where(Entry => Entry.SrcName == "GPU1 usage").FirstOrDefault().Data;
+                var GPUText = $"?GPU1:{Math.Floor(GPUHeat)}C|%{Math.Floor(GPUUsage)}";
+                
+                var CPUHeat = hardwareMonitor.Entries.Where(Entry => Entry.SrcName == "CPU temperature").FirstOrDefault().Data;
+                var CPUUsage = hardwareMonitor.Entries.Where(Entry => Entry.SrcName == "CPU usage").FirstOrDefault().Data;
+                var CPUText = $"|CPU:{Math.Floor(CPUHeat)}C|%{Math.Floor(CPUUsage)}";
+
+                var RAMValue = hardwareMonitor.Entries.Where(Entry => Entry.SrcName == "RAM usage").FirstOrDefault();
+                var RAMText = $"|RAM:%{Math.Floor((RAMValue.Data / RAMValue.MaxLimit) * 100)}";
+
+                port.Write(GPUText + CPUText + RAMText);
+
                 System.Threading.Thread.Sleep(refreshrate);
             }
             port.Close();
