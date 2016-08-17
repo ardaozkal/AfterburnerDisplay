@@ -13,12 +13,10 @@ Run the windows code. The API is pretty clear, you can modify it for any game et
 
 ##What is ready?
 
-Arduino code, partially (can get data from pc and show)
+Arduino code
 
 PC code, partially (can send commands by hand)
 
 ##What is left until completion?
 
 PC code, partially (get data from afterburner)
-
-More commands for arduino (wipe, change font size, invert etc)
