@@ -1,0 +1,7 @@
+c:\users\ardao\documents\visual studio 2015\Projects\AfterburnerComms\AfterburnerComms\bin\Debug\AfterburnerComms.exe.config
+c:\users\ardao\documents\visual studio 2015\Projects\AfterburnerComms\AfterburnerComms\bin\Debug\AfterburnerComms.exe
+c:\users\ardao\documents\visual studio 2015\Projects\AfterburnerComms\AfterburnerComms\bin\Debug\AfterburnerComms.pdb
+c:\users\ardao\documents\visual studio 2015\Projects\AfterburnerComms\AfterburnerComms\obj\Debug\AfterburnerComms.csprojResolveAssemblyReference.cache
+c:\users\ardao\documents\visual studio 2015\Projects\AfterburnerComms\AfterburnerComms\obj\Debug\AfterburnerComms.exe
+c:\users\ardao\documents\visual studio 2015\Projects\AfterburnerComms\AfterburnerComms\obj\Debug\AfterburnerComms.pdb
+c:\users\ardao\documents\visual studio 2015\Projects\AfterburnerComms\AfterburnerComms\bin\Debug\MSIAfterburner.NET.dll
