@@ -17,4 +17,4 @@ If you want to edit it for using with other stuff, just use the [sample code her
 
 ##What is ready?
 
-Pretty much everything. I just need to change some minor stuff.
+Everything I planned for this project is done. Took 7 hours, but 4 hours of it was searching for a proper library (and losing loads of time in reddit slacking) because the official display library doesn't show texts.
