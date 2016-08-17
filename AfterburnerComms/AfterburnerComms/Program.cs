@@ -83,17 +83,16 @@ namespace AfterburnerComms
             while (true)
             {
                 var hardwareMonitor = new HardwareMonitor();
-                var hmEntries = hardwareMonitor.Entries;
 
-                var GPUHeat = hmEntries.Where(Entry => Entry.SrcName == "GPU1 temperature").FirstOrDefault().Data;
-                var GPUUsage = hmEntries.Where(Entry => Entry.SrcName == "GPU1 usage").FirstOrDefault().Data;
-                var GPUText = $"?GPU1:{GPUHeat}C|%{GPUUsage}";
+                var GPUHeat = hardwareMonitor.Entries.Where(Entry => Entry.SrcName == "GPU1 temperature").FirstOrDefault().Data;
+                var GPUUsage = hardwareMonitor.Entries.Where(Entry => Entry.SrcName == "GPU1 usage").FirstOrDefault().Data;
+                var GPUText = $"?GPU1:{Math.Floor(GPUHeat)}C|%{Math.Floor(GPUUsage)}";
                 
-                var CPUHeat = hmEntries.Where(Entry => Entry.SrcName == "CPU temperature").FirstOrDefault().Data;
-                var CPUUsage = hmEntries.Where(Entry => Entry.SrcName == "CPU usage").FirstOrDefault().Data;
-                var CPUText = $"|CPU:{CPUHeat}C|%{Math.Floor(CPUUsage)}";
+                var CPUHeat = hardwareMonitor.Entries.Where(Entry => Entry.SrcName == "CPU temperature").FirstOrDefault().Data;
+                var CPUUsage = hardwareMonitor.Entries.Where(Entry => Entry.SrcName == "CPU usage").FirstOrDefault().Data;
+                var CPUText = $"|CPU:{Math.Floor(CPUHeat)}C|%{Math.Floor(CPUUsage)}";
 
-                var RAMValue = hmEntries.Where(Entry => Entry.SrcName == "RAM usage").FirstOrDefault();
+                var RAMValue = hardwareMonitor.Entries.Where(Entry => Entry.SrcName == "RAM usage").FirstOrDefault();
                 var RAMText = $"|RAM:%{Math.Floor((RAMValue.Data / RAMValue.MaxLimit) * 100)}";
 
                 port.Write(GPUText + CPUText + RAMText);
