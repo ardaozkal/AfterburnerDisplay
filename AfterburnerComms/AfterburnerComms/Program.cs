@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MSI.Afterburner;
 using System.IO;
+using System.Diagnostics;
 
 namespace AfterburnerComms
 {
@@ -15,17 +16,27 @@ namespace AfterburnerComms
         {
             Console.WriteLine("AfterburnerDisplay by ardaozkal, open source on https://github.com/ardaozkal/AfterburnerDisplay");
             Console.WriteLine("Make sure MSI Afterburner is running and the ESP8266 is plugged in.");
+
             var portname = "crash";
             var baudrate = 9600;
             var refreshrate = 1000;
+
             if (!File.Exists("config.ini"))
             {
-                Console.WriteLine("Port Name? (COM3, COM4 etc):");
+                Console.WriteLine("Port Name? (COM3, COM4, COM5 etc):");
                 portname = Console.ReadLine();
-                Console.WriteLine("Baud Rate? (default is 9600 - you still need to type):");
-                baudrate = int.Parse(Console.ReadLine());
-                Console.WriteLine("Refresh Rate? (in milliseconds, so 1000 = 1 second. Higher the value, higher the accuracy of data displayed but higher screen flashing):");
-                refreshrate = int.Parse(Console.ReadLine());
+                bool baudOK = false;
+                while (!baudOK)
+                {
+                    Console.WriteLine("Baud Rate? (default is 9600 - you still need to type):");
+                    baudOK = int.TryParse(Console.ReadLine(), out baudrate);
+                }
+                bool refreshRateOK = false;
+                while (!refreshRateOK)
+                {
+                    Console.WriteLine("Refresh Rate? (in milliseconds, so 1000 = 1 second. Higher the value, higher the accuracy of data displayed but higher screen flashing):");
+                    refreshRateOK = int.TryParse(Console.ReadLine(), out refreshrate);
+                }
                 File.WriteAllLines("config.ini", new List<string> { portname, baudrate.ToString(), refreshrate.ToString() });
                 Console.WriteLine("Saved config and started working.");
             }
@@ -45,11 +56,34 @@ namespace AfterburnerComms
                     Console.WriteLine("Loaded config and started working.");
                 }
             }
+
+            bool AfterburnerRunning = (Process.GetProcessesByName("MSIAfterburner").Count() != 0);
+
+            while (!AfterburnerRunning)
+            {
+                Console.WriteLine("Afterburner doesn't seem to be open. Press R to rescan and B to bypass / ignore this warning (will likely crash but whatever).");
+                var nextKey = Console.ReadKey(true);
+                if (nextKey.Key == ConsoleKey.R)
+                {
+                    AfterburnerRunning = (Process.GetProcessesByName("MSIAfterburner").Count() != 0);
+                    if (AfterburnerRunning) Console.WriteLine("Afterburner is running, continuing");
+                    else Console.WriteLine("Afterburner is still not running. Try bypassing if you are sure that it is running.");
+                }
+                else if (nextKey.Key == ConsoleKey.B)
+                {
+                    AfterburnerRunning = true;
+                    Console.WriteLine("Afterburner check bypassed. The program will likely crash.");
+                }
+            }
+
             SerialPort port = new SerialPort(portname, baudrate);
+
             port.Open();
+
             while (true)
             {
                 var hardwareMonitor = new HardwareMonitor();
+
                 var GPUHeat = hardwareMonitor.Entries.Where(Entry => Entry.SrcName == "GPU1 temperature").FirstOrDefault().Data;
                 var GPUUsage = hardwareMonitor.Entries.Where(Entry => Entry.SrcName == "GPU1 usage").FirstOrDefault().Data;
                 var GPUText = $"?GPU1:{Math.Floor(GPUHeat)}C|%{Math.Floor(GPUUsage)}";
